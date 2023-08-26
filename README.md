@@ -1,8 +1,8 @@
-# Water Jug Challenge Solver
+# Water Jug Challenge Solver - Proyecto React
 
 ## Motivo de la Aplicación
 
-La aplicación Water Jug Challenge resuelve el famoso desafío de las botellas de agua. El desafío consiste en utilizar dos jarras de diferentes capacidades para medir una cantidad específica de agua. La aplicación permite a los usuarios ingresar las capacidades de las jarras y la cantidad de agua objetivo, y luego muestra el proceso para lograr la medida requerida.
+La aplicación Water Jug Challenge es un proyecto en React que resuelve el famoso desafío de las botellas de agua. El desafío consiste en utilizar dos jarras de diferentes capacidades para medir una cantidad específica de agua. La aplicación permite a los usuarios ingresar las capacidades de las jarras y la cantidad de agua objetivo, y luego muestra el proceso para lograr la medida requerida.
 
 ## Estructura de Carpetas
 
