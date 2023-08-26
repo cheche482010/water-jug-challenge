@@ -4,13 +4,24 @@ import Solution from './components/Solution';
 
 function App() {
   const [solution, setSolution] = useState([]);
+  const [hasSolved, setHasSolved] = useState(false);
+  const [hasCleared, setHasCleared] = useState(false); 
 
   const solveWaterJugChallenge = (x, y, z) => {
     const steps = [];
     let jugX = 0;
     let jugY = 0;
+    const visitedStates = new Set();
+    let solutionFound = true;
 
     while (jugX !== z && jugY !== z) {
+      const currentState = `${jugX}-${jugY}`;
+      if (visitedStates.has(currentState)) {
+        solutionFound = false;
+        break;
+      }
+      visitedStates.add(currentState);
+
       if (jugX === 0) {
         jugX = x;
         steps.push({ bucketX: jugX, bucketY: jugY, explanation: `Fill bucket x` });
@@ -25,14 +36,26 @@ function App() {
       }
     }
 
-    setSolution(steps);
+    setHasSolved(true);
+
+    if (solutionFound) {
+      setSolution(steps);
+    } else {
+      setSolution([]);
+    }
+  };
+
+  const handleClear = () => {
+    setSolution([]); 
+    setHasCleared(true);
+    setHasSolved(false); 
   };
 
   return (
     <div className="App">
       <h1>Water Jug Challenge</h1>
-      <JugForm onSolve={solveWaterJugChallenge} />
-      <Solution solution={solution} />
+      <JugForm onSolve={solveWaterJugChallenge} onClear={handleClear} />
+      <Solution solution={solution} hasSolved={hasSolved} hasCleared={hasCleared} />
     </div>
   );
 }

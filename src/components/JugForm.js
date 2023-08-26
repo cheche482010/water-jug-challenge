@@ -2,33 +2,53 @@ import React, { useState } from 'react';
 import InputField from './InputField';
 import './css/JugForm.css';
 
-function JugForm({ onSolve }) {
+function validateInputs(x, y, z) {
+  if (!x || !y || !z) {
+    return 'Please fill in all fields.';
+  }
+
+  const parsedX = parseInt(x);
+  const parsedY = parseInt(y);
+  const parsedZ = parseInt(z);
+
+  if (isNaN(parsedX) || isNaN(parsedY) || isNaN(parsedZ)) {
+    return 'Values must be integers.';
+  }
+
+  if (parsedX <= 0 || parsedY <= 0 || parsedZ <= 0) {
+    return 'Values must be greater than zero.';
+  }
+
+  return '';
+}
+
+function JugForm({ onSolve, onClear }) {
   const [x, setX] = useState('');
   const [y, setY] = useState('');
   const [z, setZ] = useState('');
   const [error, setError] = useState('');
 
   const handleSolve = () => {
-    if (!x || !y || !z) {
-      setError('Please fill in all fields.');
+    const validationError = validateInputs(x, y, z);
+    if (validationError) {
+      setError(validationError);
       return;
     }
+
     const parsedX = parseInt(x);
     const parsedY = parseInt(y);
     const parsedZ = parseInt(z);
 
-    if (isNaN(parsedX) || isNaN(parsedY) || isNaN(parsedZ)) {
-      setError('Values must be integers.');
-      return;
-    }
-
-    if (parsedX <= 0 || parsedY <= 0 || parsedZ <= 0) {
-      setError('Values must be greater than zero.');
-      return;
-    }
-
     setError('');
     onSolve(parsedX, parsedY, parsedZ);
+  };
+
+  const handleClear = () => {
+    setX('');
+    setY('');
+    setZ('');
+    setError('');
+    onClear(); // Llama a la función onClear del componente App
   };
 
   return (
@@ -36,7 +56,10 @@ function JugForm({ onSolve }) {
       <InputField label="X-gallon Jug" value={x} onChange={(e) => setX(e.target.value)} />
       <InputField label="Y-gallon Jug" value={y} onChange={(e) => setY(e.target.value)} />
       <InputField label="Z gallons" value={z} onChange={(e) => setZ(e.target.value)} />
-      <button onClick={handleSolve}>Solve</button>
+      <div className="buttons-container">
+        <button className="solve-button" onClick={handleSolve}>Solve</button>
+        <button className="clear-button" onClick={handleClear}>Clear</button>
+      </div>
       {error && <p className="error">{error}</p>}
     </div>
   );
