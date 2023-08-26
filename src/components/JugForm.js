@@ -48,7 +48,7 @@ function JugForm({ onSolve, onClear }) {
     setY('');
     setZ('');
     setError('');
-    onClear(); // Llama a la función onClear del componente App
+    onClear();
   };
 
   return (
