@@ -1,4 +1,4 @@
-# Water Jug Challenge App
+# Water Jug Challenge Solver
 
 ## Motivo de la Aplicación
 
@@ -6,47 +6,54 @@ La aplicación Water Jug Challenge resuelve el famoso desafío de las botellas d
 
 ## Estructura de Carpetas
 
-La estructura de carpetas de la aplicación está organizada de la siguiente manera:
+- **src**
+  - **components**: Contiene los componentes utilizados en la interfaz de usuario.
+    - `Algorithm.js`: Contiene el algoritmo que resuelve el desafío.
+    - `InputField.js`: Componente reutilizable para campos de entrada.
+    - `JugForm.js`: Componente que muestra el formulario de entrada de datos.
+    - `Solution.js`: Componente que muestra la solución del desafío.
+    - `SolutionTable.js`: Componente que muestra la tabla de pasos de la solución.
+  - **css**: Contiene los estilos CSS para los componentes.
+    - `InputField.css`
+    - `JugForm.css`
+    - `Solution.css`
+  - `App.js`: Componente principal que renderiza la interfaz de usuario.
+  - `index.js`: Punto de entrada de la aplicación.
 
-water-jug-challenge/
-|-- src/
-| |-- components/
-| | |-- css/
-| | | |-- InputField.css
-| | | |-- JugForm.css
-| | | |-- Solution.css
-| | |-- InputField.js
-| | |-- JugForm.js
-| | |-- Solution.js
-| |-- App.js
-| |-- index.js
-| |-- ...
-|-- public/
-|-- ...
-|-- ...
+## Componentes Utilizados
 
+### `Algorithm.js`
 
-- `src/components/`: Contiene los componentes principales de la aplicación.
-- `src/components/css/`: Contiene archivos CSS para los estilos de los componentes.
-- `src/App.js`: Componente principal que ensambla otros componentes y maneja la lógica del desafío.
-- `src/index.js`: Punto de entrada de la aplicación.
+Este componente contiene el algoritmo principal que resuelve el desafío del problema de los recipientes de agua. Utiliza un enfoque de búsqueda en anchura (BFS).
 
-## Funcionamiento de los Componentes
+### `InputField.js`
 
-### JugForm.js
+Este componente es una pieza reutilizable de la interfaz de usuario que representa un campo de entrada numérico. Recibe tres propiedades: `label`, `value` y `onChange`. `label` muestra una etiqueta descriptiva para el campo, `value` es el valor numérico actual del campo y `onChange` es una función que se ejecuta cuando el valor cambia.
 
-El componente `JugForm` renderiza un formulario donde los usuarios pueden ingresar las capacidades de las jarras (X-gallon y Y-gallon) y la cantidad de agua objetivo (Z gallons). También incluye validaciones para garantizar que las entradas sean números enteros y mayores que cero. Al hacer clic en el botón "Solve", se llama a la función `solveWaterJugChallenge` en `App.js`.
+### `JugForm.js`
 
-### Solution.js
+Este componente muestra un formulario interactivo para ingresar los valores de capacidad de los dos recipientes (`X` y `Y`) y la cantidad deseada `Z`. Utiliza el componente `InputField` para crear los campos de entrada. Cuando se hace clic en el botón "Solve", valida los datos ingresados, realiza la llamada al algoritmo para resolver el desafío y muestra la solución o un mensaje de error.
 
-El componente `Solution` muestra la solución encontrada para el desafío. Si se encuentra una solución, muestra los pasos para lograr la cantidad de agua objetivo, rodeados de verde. Si no se encuentra una solución, muestra "No Solution" rodeado de rojo.
+### `Solution.js`
 
-### InputField.js
+Este componente muestra la solución del problema o un mensaje si no se encuentra ninguna solución. Utiliza el componente `SolutionTable` para mostrar los pasos de la solución en forma de tabla. Si no hay solución, muestra un mensaje de "No solution found."
 
-El componente `InputField` es reutilizable y maneja los campos de entrada. Renderiza un campo de entrada `input` junto con su correspondiente etiqueta `label`.
+### `SolutionTable.js`
+
+Este componente muestra los pasos de la solución en forma de tabla. Recibe una propiedad `solution` que es un arreglo de pasos, donde cada paso tiene información sobre el estado de los recipientes y la acción realizada en ese paso. La tabla muestra los cambios en las capacidades de los recipientes en cada paso, junto con una explicación de la acción tomada.
 
 ## Algoritmo Utilizado
 
-El algoritmo utilizado para resolver el desafío es una simulación simple que utiliza las operaciones de llenado, vaciado y transferencia de agua entre las jarras. En cada paso, se consideran tres posibles operaciones: llenar una jarra, vaciar una jarra y transferir agua de una jarra a otra. El algoritmo continúa ejecutando estas operaciones hasta que se alcance la cantidad de agua objetivo en una de las jarras.
+El algoritmo utilizado es un enfoque de búsqueda en anchura (BFS). Comienza con un estado inicial (ambos recipientes vacíos) y explora todas las posibles acciones que pueden realizarse desde ese estado. El algoritmo considera llenar o vaciar los recipientes, y transferir agua entre ellos. Se utiliza una cola para mantener un seguimiento de los estados pendientes de explorar.
 
-El algoritmo no siempre encuentra la solución más eficiente y puede requerir varios pasos en algunos casos. Se utilizó este enfoque simple para demostrar el proceso básico de resolución del desafío.
+El algoritmo continúa explorando hasta encontrar la solución (una de las capacidades coincide con la cantidad deseada) o hasta que no haya más estados por explorar. Si se encuentra una solución, se guardan los pasos necesarios para llegar a ella. Si no se encuentra una solución, se marca como resuelto con una solución vacía.
+
+## Cómo Instalar y Ejecutar
+
+1. Clona este repositorio en tu máquina local.
+2. Abre una terminal y navega hasta el directorio del proyecto.
+3. Ejecuta `npm install` para instalar las dependencias.
+4. Ejecuta `npm start` para iniciar la aplicación en el navegador.
+
+
+
